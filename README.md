@@ -1,39 +1,13 @@
-# drowsiness-alert-system
-## Applications
-### This can be used by riders who tends to drive the vehicle for a longer period of time that may lead to accidents
-## Code Requirements
-### The example code is in Python ([version 2.7](https://www.python.org/download/releases/2.7/) or higher will work).
-## Dependencies
-```
- 1)import cv2
- 2)import immutils
- 3)import dlib
- 4)import scipy
- 5)import playsound
- 6)import queue
- 7)import time
- 8)import sys
- ```
-## Description
-###  A computer vision system made with the help of opencv that can automatically detect driver drowsiness in a real-time video stream and then play an alarm if the driver appears to be drowsy.
-## Algorithm
-● We utilised a pre trained frontal face detector from Dlib’s library which is based on  a modification to the Histogram of Oriented Gradients in combination with Linear  SVM for classification.  
+Drowsiness detection is a safety technology that can prevent accidents that are caused by drivers who fell asleep while driving.
 
-● The pre-trained facial landmark detector inside the dlib library is used to estimate  the location of 68 (x, y)-coordinates that map to facial structures on the face. The 68  landmark output is shown in the figure below. However, we utilised the 70 landmark  model.
-
-<img src="https://github.com/Shambsri21/drowsiness-alert-system/assets/76169041/a4acff36-6e48-40ed-9e75-f2cd88a70dd6">
-
-● We then calculate the aspect ratio to check whether eyes are opened or closed.
-
-● The eye is open if Eye Aspect ratio is greater than threshold. (Around 0.3)
-
-<img src="https://github.com/Shambsri21/drowsiness-alert-system/assets/76169041/c472e491-6268-4752-9429-02432259b8a2">
-
-● A blink is supposed to last 200-300 milliseconds.
-
-● A drowsy blink would last for  800-900  ms. 
-
-<img src="https://github.com/Shambsri21/drowsiness-alert-system/assets/76169041/617a7560-afd9-40a6-9a77-2f9f0d1ce698">
-
-## Execution
-To run the code, run 
+Here We've used OpenCV, Tensorflow, Keras and Pygame to build a programme that triggers alarm if the driver is drowsy and prevents a calamity from happening in a live video feed. We've used a CNN model using keras involving the following layers, to train a dataset to classify between closed and open eyes. (Model.py)
+Convolutional Layer (32 3X3 Filters)
+Max Pool layer (Pool Size 1X1)
+Convolutional Layer (32 3X3 Filters)
+Max Pool layer (Pool Size 1X1)
+Convolutional Layer (64 3X3 Filters)
+Max Pool layer (Pool Size 1X1)
+Dense Layer (128-R ReLU activation)
+Dense Layer (2-R Softmax activation)
+The model is then saved to models/cnnCat2.h5.
+Then the programme to detect a drowsy driver uses OpenCV Haarcascade function to detect the eyes of the driver, our ROI, and then applies our CNN model to the ROI, and predicts a score, saying the driver is drowsy or not. If the core is above certain mark, the programm triggers an audio alarm using pygame. (drowsiness detection.py)
